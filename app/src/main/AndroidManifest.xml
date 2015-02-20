@@ -35,7 +35,7 @@
                 android:value="com.example.azaz.myapplication.LoginActivity" />
         </activity>
         <activity
-            android:name=".create_group"
+            android:name=".CreateGroupActivity"
             android:label="@string/title_activity_create_group" >
         </activity>
     </application>
