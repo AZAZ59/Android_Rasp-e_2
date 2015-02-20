@@ -26,6 +26,10 @@
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
+        <activity
+            android:name=".create_group"
+            android:label="@string/title_activity_create_group" >
+        </activity>
     </application>
 
 </manifest>
