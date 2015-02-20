@@ -1,6 +1,5 @@
 package com.example.azaz.myapplication;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -41,7 +40,7 @@ public class CreateGroupActivity extends ActionBarActivity {
     public void save(View view){//ф-ия перехода
 
     }
-    public void addUniversity(){//запрос к бд, добавление университета
+    public void addUniversity(View view){//запрос к бд, добавление университета
 
     }
 }
