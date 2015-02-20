@@ -19,15 +19,20 @@ public class FindGroup extends ActionBarActivity {
         setContentView(R.layout.activity_find_group);
         final String[] university={"СГАУ","Политех","ГОС"};
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, university);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, university);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner sp = (Spinner)findViewById(R.id.ChoseUniversity);
         sp.setAdapter(adapter);
         sp.setSelection(0);
-        sp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getBaseContext(), "Position = " + position+" value = "+university[position], Toast.LENGTH_SHORT).show();
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getBaseContext(), "Position = " + position + " value = " + university[position], Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
     }
