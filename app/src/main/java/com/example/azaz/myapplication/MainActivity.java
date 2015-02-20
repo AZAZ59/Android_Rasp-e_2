@@ -7,11 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextClock;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.text.SimpleDateFormat;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -33,7 +28,7 @@ public class MainActivity extends ActionBarActivity {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent SecAct = new Intent(getApplicationContext(), create_group.class);
+                Intent SecAct = new Intent(getApplicationContext(), CreateGroupActivity.class);
                 startActivity(SecAct);
             }
         });

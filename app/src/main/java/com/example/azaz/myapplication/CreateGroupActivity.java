@@ -4,9 +4,10 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
-public class create_group extends ActionBarActivity {
+public class CreateGroupActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,5 +36,11 @@ public class create_group extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void save(View view){//ф-ия перехода
+
+    }
+    public void addUniversity(View view){//запрос к бд, добавление университета
+
     }
 }
