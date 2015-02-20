@@ -27,6 +27,14 @@
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
         <activity
+            android:name=".FindGroup"
+            android:label="@string/title_activity_find_group"
+            android:parentActivityName=".LoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.azaz.myapplication.LoginActivity" />
+        </activity>
+        <activity
             android:name=".create_group"
             android:label="@string/title_activity_create_group" >
         </activity>

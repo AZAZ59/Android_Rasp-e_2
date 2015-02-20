@@ -1,10 +1,12 @@
 package com.example.azaz.myapplication;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +20,14 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ((Button)findViewById(R.id.button3)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent SecAct = new Intent(getApplicationContext(), create_group.class);
+                startActivity(SecAct);
+            }
+        });
     }
 
 
@@ -44,7 +54,10 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void PrintTime(View view) {
-        Toast toast = Toast.makeText(getApplicationContext(),
+        Intent SecAct = new Intent(getApplicationContext(), FindGroup.class);
+        startActivity(SecAct);
+
+        /*Toast toast = Toast.makeText(getApplicationContext(),
                 "test_toast", Toast.LENGTH_SHORT);
         toast.show();
         TextView tv  = (TextView) findViewById(R.id.textView);
@@ -52,8 +65,9 @@ public class MainActivity extends ActionBarActivity {
         //SimpleDateFormat sdf = new SimpleDateFormat()
         tv.setText(System.currentTimeMillis()+"");
         //TextClock tc =(TextClock)findViewById(R.id.textClock);
-        //tc.setFormat24Hour("HH:MM:SS");
+        //tc.setFormat24Hour("HH:MM:SS");*/
 
     }
+
 
 }

@@ -4,6 +4,9 @@
     <string name="app_name">My Application</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_find_group">FindGroup</string>
+    <string name="accept_university">Вступить</string>
+    <string name="chose_university">Выбор универа</string>
     <string name="title_activity_create_group">Создание группы</string>
 
 </resources>
