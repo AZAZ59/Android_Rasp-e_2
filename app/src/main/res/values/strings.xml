@@ -8,5 +8,8 @@
     <string name="accept_university">Вступить</string>
     <string name="chose_university">Выбор универа</string>
     <string name="title_activity_create_group">Создание группы</string>
+    <string name="title_activity_schedule">schedule</string>
+    <string name="title_activity_list__schedule">List_Schedule</string>
+    <string name="title_activity_schedule__item">Schedule_Item</string>
 
 </resources>

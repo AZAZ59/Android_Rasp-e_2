@@ -4,22 +4,21 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 
-public class CreateGroupActivity extends ActionBarActivity {
+public class List_Schedule extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_group);
+        setContentView(R.layout.activity_list__schedule);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_create_group, menu);
+        getMenuInflater().inflate(R.menu.menu_list__schedule, menu);
         return true;
     }
 
@@ -36,13 +35,5 @@ public class CreateGroupActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void save(View view) {//ф-ия перехода
-
-    }
-
-    public void addUniversity(View view) {//запрос к бд, добавление университета
-
     }
 }

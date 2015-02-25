@@ -1,8 +1,8 @@
 package com.example.azaz.myapplication;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +17,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
 
-        Button b=(Button)findViewById(R.id.button3);
+
         /*b.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -25,6 +25,15 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(SecAct);
             }
         });*/
+        ((Button) findViewById(R.id.schedule)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent SecAct = new Intent(getApplicationContext(), schedule.class);
+                startActivity(SecAct);
+            }
+        });
+
+        Button b = (Button) findViewById(R.id.button3);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,7 +1,7 @@
 package com.example.azaz.myapplication;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,11 +17,13 @@ public class FindGroup extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_group);
-        final String[] university={"СГАУ","Политех","ГОС"};
+
+
+        final String[] university = {"СГАУ", "Политех", "ГОС"};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, university);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Spinner sp = (Spinner)findViewById(R.id.ChoseUniversity);
+        Spinner sp = (Spinner) findViewById(R.id.ChoseUniversity);
         sp.setAdapter(adapter);
         sp.setSelection(0);
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
