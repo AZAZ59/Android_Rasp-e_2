@@ -17,18 +17,29 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
 
-
-        /*b.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent SecAct = new Intent(getApplicationContext(), create_group.class);
-                startActivity(SecAct);
-            }
-        });*/
-        ((Button) findViewById(R.id.schedule)).setOnClickListener(new View.OnClickListener() {
+        Button b1 = ((Button) findViewById(R.id.schedule));
+        b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent SecAct = new Intent(getApplicationContext(), schedule.class);
+                startActivity(SecAct);
+            }
+        });
+
+        Button b4 = ((Button) findViewById(R.id.schedule));
+        b4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent SecAct = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(SecAct);
+            }
+        });
+
+        Button b5 = ((Button) findViewById(R.id.schedule));
+        b5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent SecAct = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(SecAct);
             }
         });
