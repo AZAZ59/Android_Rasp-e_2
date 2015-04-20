@@ -1,6 +1,7 @@
 package com.example.azaz.myapplication;
 
 import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 
 public class FindGroup extends ActionBarActivity {
 
@@ -17,6 +20,8 @@ public class FindGroup extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_group);
+
+
 
 
         final String[] university = {"СГАУ", "Политех", "ГОС"};
@@ -38,6 +43,24 @@ public class FindGroup extends ActionBarActivity {
             }
         });
     }
+
+    private String[] getAllUniversity(){
+        WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, this, "Posting data...");
+        String str = String.valueOf(wst.execute(new String[] {Constants.getServiceUrl()+"/user" }));
+
+
+        // the passed String is the URL we will POST to
+
+        int i=0;
+        ArrayList<String> a = new ArrayList<>();
+        String[] t = new String[a.size()];
+        for(String s:a){
+            t[i]=s;
+        }
+        return t;
+    }
+
+
 
 
 

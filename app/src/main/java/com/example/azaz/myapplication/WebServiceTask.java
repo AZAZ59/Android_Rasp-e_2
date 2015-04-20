@@ -102,7 +102,6 @@ public class WebServiceTask extends AsyncTask<String, Integer, String> {
             } catch (IOException e) {
                 Log.e(TAG, e.getLocalizedMessage(), e);
             }
-
         }
 
         return result;

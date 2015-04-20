@@ -29,7 +29,6 @@ public class userDB extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
     }
 
     public void write(Integer id_user, Integer id_university, Integer id_group, Integer rights){

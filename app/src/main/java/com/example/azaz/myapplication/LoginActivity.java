@@ -129,7 +129,7 @@ public class LoginActivity extends Activity {
         wst.addNameValuePair("password", password);
 
         // the passed String is the URL we will POST to
-        wst.execute(new String[] {Constants.getServiceUrl()+"/group" });
+        wst.execute(new String[] {Constants.getServiceUrl()+"/user" });
 
     }
 
