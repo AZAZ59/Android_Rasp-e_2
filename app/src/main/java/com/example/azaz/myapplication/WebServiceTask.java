@@ -1,11 +1,9 @@
 package com.example.azaz.myapplication;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.inputmethod.InputMethodManager;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -32,25 +30,22 @@ public class WebServiceTask extends AsyncTask<String, Integer, String> {
 
     public static final int POST_TASK = 1;
     public static final int GET_TASK = 2;
-
+    private int taskType = GET_TASK;
     private static final String TAG = "WebServiceTask";
-
     // connection timeout, in milliseconds (waiting to connect)
     private static final int CONN_TIMEOUT = 3000;
-
     // socket timeout, in milliseconds (waiting for data)
     private static final int SOCKET_TIMEOUT = 5000;
-
-    private int taskType = GET_TASK;
     private Context mContext = null;
     private String processMessage = "Processing...";
+    private Handable handle;
 
     private ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 
     private ProgressDialog pDlg = null;
 
-    public WebServiceTask(int taskType, Context mContext, String processMessage) {
-
+    public WebServiceTask(int taskType, Context mContext, String processMessage, Handable handle) {
+        this.handle = handle;
         this.taskType = taskType;
         this.mContext = mContext;
         this.processMessage = processMessage;
@@ -109,10 +104,10 @@ public class WebServiceTask extends AsyncTask<String, Integer, String> {
 
     @Override
     protected void onPostExecute(String response) {
-
         //handleResponse(response);
+        //mContext.
+        handle.handleResponse(response);
         pDlg.dismiss();
-
     }
 
     // Establish connection and socket (data retrieval) timeouts

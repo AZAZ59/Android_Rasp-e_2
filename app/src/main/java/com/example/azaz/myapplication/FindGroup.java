@@ -1,7 +1,6 @@
 package com.example.azaz.myapplication;
 
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,7 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 
-public class FindGroup extends ActionBarActivity {
+public class FindGroup extends ActionBarActivity implements Handable {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,7 @@ public class FindGroup extends ActionBarActivity {
     }
 
     private String[] getAllUniversity(){
-        WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, this, "Posting data...");
+        WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, this, "Posting data...", this);
         String str = String.valueOf(wst.execute(new String[] {Constants.getServiceUrl()+"/user" }));
 
 
@@ -85,5 +84,10 @@ public class FindGroup extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void handleResponse(String response) {
+
     }
 }

@@ -1,55 +1,23 @@
 package com.example.azaz.myapplication;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.Context;
-import android.content.CursorLoader;
-import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.provider.SyncStateContract;
-import android.text.TextUtils;
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
+import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends Activity {
+public class LoginActivity extends Activity implements Handable {
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -101,8 +69,6 @@ public class LoginActivity extends Activity {
 
     }
 
-
-
     private void clearControls(){
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -123,16 +89,42 @@ public class LoginActivity extends Activity {
             return;
         }
 
-        WebServiceTask wst = new WebServiceTask(WebServiceTask.POST_TASK, this, "Posting data...");
+        WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, this, "Posting data...", this);
 
-        wst.addNameValuePair("email", email);
-        wst.addNameValuePair("password", password);
+        //wst.addNameValuePair("email", email);
+        //wst.addNameValuePair("password", password);
 
         // the passed String is the URL we will POST to
-        wst.execute(new String[] {Constants.getServiceUrl()+"/user" });
+        wst.execute(new String[]{Constants.getServiceUrl() + "/group/all"});
 
     }
 
+    public void handleResponse(String response) {
+
+        EditText edEmail = (EditText) findViewById(R.id.email);
+        EditText edPassword = (EditText) findViewById(R.id.password);
+
+        edEmail.setText("");
+        edPassword.setText("");
+
+        try {
+
+            JSONObject jso = new JSONObject(response);
+
+            JSONArray arr = jso.getJSONArray("group");
+            JSONObject o1 = arr.getJSONObject(0);
+
+            edEmail.setText(o1.getString("id"));
+            edPassword.setText(o1.getString("nameGroup"));
+
+            Toast.makeText(this, o1.getString("nameGroup"),
+                    Toast.LENGTH_LONG).show();
+
+        } catch (Exception e) {
+            Log.e("AASS", e.getLocalizedMessage(), e);
+        }
+
+    }
 
 }
 
