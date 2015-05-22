@@ -16,6 +16,12 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        findViewById(R.id.Login).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            }
+        });
 
         Button b1 = ((Button) findViewById(R.id.schedule));
         b1.setOnClickListener(new View.OnClickListener() {
@@ -35,11 +41,11 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        Button b5 = ((Button) findViewById(R.id.schedule));
+        Button b5 = ((Button) findViewById(R.id.button5));
         b5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent SecAct = new Intent(getApplicationContext(), LoginActivity.class);
+                Intent SecAct = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(SecAct);
             }
         });

@@ -19,10 +19,6 @@ public class FindGroup extends ActionBarActivity implements Handable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_group);
-
-
-
-
         final String[] university = {"СГАУ", "Политех", "ГОС"};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, university);
@@ -43,25 +39,21 @@ public class FindGroup extends ActionBarActivity implements Handable {
         });
     }
 
-    private String[] getAllUniversity(){
+    private String[] getAllUniversity() {
         WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, this, "Posting data...", this);
-        String str = String.valueOf(wst.execute(new String[] {Constants.getServiceUrl()+"/user" }));
+        String str = String.valueOf(wst.execute(new String[]{Constants.getServiceUrl() + "/user"}));
 
 
         // the passed String is the URL we will POST to
 
-        int i=0;
+        int i = 0;
         ArrayList<String> a = new ArrayList<>();
         String[] t = new String[a.size()];
-        for(String s:a){
-            t[i]=s;
+        for (String s : a) {
+            t[i] = s;
         }
         return t;
     }
-
-
-
-
 
 
     @Override

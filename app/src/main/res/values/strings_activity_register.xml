@@ -1,0 +1,9 @@
+<resources>
+    <string name="title_activity_register">Register</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email_reg">Email</string>
+    <string name="prompt_password_reg">Password</string>
+    <string name="action_sign_in_Reg">Register</string>
+    <string name="action_sign_in_short_reg">Sign in</string>
+</resources>

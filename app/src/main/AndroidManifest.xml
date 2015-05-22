@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.azaz.myapplication" >
+    package="com.example.azaz.myapplication">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -12,10 +12,10 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,12 +25,11 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
-            android:windowSoftInputMode="adjustResize|stateVisible" >
-        </activity>
+            android:windowSoftInputMode="adjustResize|stateVisible"></activity>
         <activity
             android:name=".FindGroup"
             android:label="@string/title_activity_find_group"
-            android:parentActivityName=".LoginActivity" >
+            android:parentActivityName=".LoginActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.azaz.myapplication.LoginActivity" />
@@ -53,10 +52,14 @@
         </activity>
         <activity
             android:name=".List_Schedule"
-            android:label="@string/title_activity_list__schedule"></activity>
+            android:label="@string/title_activity_list__schedule" />
         <activity
             android:name=".Schedule_Item"
-            android:label="@string/title_activity_schedule__item"></activity>
+            android:label="@string/title_activity_schedule__item" />
+        <activity
+            android:name=".RegisterActivity"
+            android:label="@string/title_activity_register"
+            android:windowSoftInputMode="adjustResize|stateVisible"></activity>
     </application>
 
 </manifest>

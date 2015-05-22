@@ -1,6 +1,7 @@
 package com.example.azaz.myapplication;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 
@@ -18,17 +18,6 @@ import org.json.JSONObject;
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends Activity implements Handable {
-
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "test@test.ru:test", "foo@example.com:hello", "bar@example.com:world"
-    };
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -58,14 +47,14 @@ public class LoginActivity extends Activity implements Handable {
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
-        /*Button guest = (Button) findViewById(R.id.button3);
+        Button guest = (Button) findViewById(R.id.Guest);
         guest.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent SecAct = new Intent(getApplicationContext(), FindGroup.class);
                 startActivity(SecAct);
             }
-        });*/
+        });
 
     }
 
@@ -95,32 +84,20 @@ public class LoginActivity extends Activity implements Handable {
         //wst.addNameValuePair("password", password);
 
         // the passed String is the URL we will POST to
-        wst.execute(new String[]{Constants.getServiceUrl() + "/group/all"});
+        wst.execute(new String[]{Constants.getServiceUrl() + "/user/byName?name=" + email});
 
     }
 
     public void handleResponse(String response) {
-
-        EditText edEmail = (EditText) findViewById(R.id.email);
         EditText edPassword = (EditText) findViewById(R.id.password);
-
-        edEmail.setText("");
-        edPassword.setText("");
-
         try {
-
             JSONObject jso = new JSONObject(response);
-
-            JSONArray arr = jso.getJSONArray("group");
-            JSONObject o1 = arr.getJSONObject(0);
-
-            edEmail.setText(o1.getString("id"));
-            edPassword.setText(o1.getString("nameGroup"));
-
-            Toast.makeText(this, o1.getString("nameGroup"),
-                    Toast.LENGTH_LONG).show();
-
+            if (jso.getString("password").equals(edPassword.getText().toString())) {
+                Intent SecAct = new Intent(getApplicationContext(), FindGroup.class);
+                startActivity(SecAct);
+            }
         } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Invalid password or email", Toast.LENGTH_SHORT).show();
             Log.e("AASS", e.getLocalizedMessage(), e);
         }
 
