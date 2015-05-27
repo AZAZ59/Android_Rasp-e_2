@@ -37,6 +37,7 @@ public class RegisterActivity extends Activity implements Handable {
     private ArrayList<String> groups = new ArrayList<>();
     private ArrayList<String> university = new ArrayList<>();
     private SharedPreferences sharedPreferences;
+    private int idgroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,9 @@ public class RegisterActivity extends Activity implements Handable {
         mSpinner_university = (Spinner) findViewById(R.id.spinner);
         mSpinner_university.setPrompt("University");
         mSpinner_group = (Spinner) findViewById(R.id.spinner2);
-        mSpinner_group.setEnabled(false);
+        mSpinner_group.setEnabled(true);
+        mSpinner_university.setEnabled(true);
+
         new WebServiceTask(WebServiceTask.GET_TASK, this, "Posting data...", new Handable() {
             @Override
             public void handleResponse(String response) {
@@ -58,7 +61,6 @@ public class RegisterActivity extends Activity implements Handable {
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(RegisterActivity.this, android.R.layout.simple_spinner_dropdown_item, university.toArray(new String[0]));
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     mSpinner_university.setAdapter(adapter);
-                    mSpinner_university.setEnabled(true);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -91,6 +93,28 @@ public class RegisterActivity extends Activity implements Handable {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        mSpinner_group.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                new WebServiceTask(WebServiceTask.GET_TASK, RegisterActivity.this, "Posting data...", new Handable() {
+                    @Override
+                    public void handleResponse(String response) {
+                        try {
+                            idgroup = new JSONObject(response).getInt("id");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).execute(
+                        new String[]{Constants.getServiceUrl() + "/group/byName?name=" + groups.get(position)}
+                );
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 
@@ -139,22 +163,18 @@ public class RegisterActivity extends Activity implements Handable {
                     Toast.LENGTH_LONG).show();
             return;
         }
-        sharedPreferences = getPreferences(MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("username", login);
         editor.putString("password", password);
-        editor.putLong("group", idGroup());
+        editor.putLong("group", idgroup);
         editor.commit();
         Toast.makeText(this, "Данные сохранены", Toast.LENGTH_SHORT).show();
 
-
-
-
-        WebServiceTask wst = new WebServiceTask(WebServiceTask.POST_TASK, this, "Posting data...", this);
-        wst.execute(new String[]{Constants.getServiceUrl() + "/user/name=" + login + "&pass=" + password + "rights=" + 1  +"&group="+ idGroup()});//TODO
+        WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, this, "Posting data...", this);
+        wst.execute(new String[]{Constants.getServiceUrl() + "/user/create?name=" + login + "&pass=" + password + "&rights=" + 1 + "&id_group=" + idgroup});//TODO
 
     }
-
 
     private void postDataWithoutGroup() {
         EditText edEmail = (EditText) findViewById(R.id.email);
@@ -169,22 +189,16 @@ public class RegisterActivity extends Activity implements Handable {
         }
 
         WebServiceTask wst = new WebServiceTask(WebServiceTask.POST_TASK, this, "Posting data...", this);
-        wst.execute(new String[]{Constants.getServiceUrl() + "/user/name=" + login + "&pass=" + password + "&rights=" + 1});//TODO
+        wst.execute(new String[]{Constants.getServiceUrl() + "/user/create?name=" + login + "&pass=" + password + "&rights=" + 1});//TODO
 
     }
-
-    private Integer idGroup() {
-        String obj = (String) mSpinner_group.getSelectedItem();//TODO
-        return 0;
-    }
-
 
     public void handleResponse(String response) {
         try {
             JSONObject jso = new JSONObject(response);
             EditText edPassword = (EditText) findViewById(R.id.password);
             if (jso.getString("password").equals(edPassword.getText().toString())) {
-                Intent SecAct = new Intent(getApplicationContext(), FindGroup.class);
+                Intent SecAct = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(SecAct);
             }
 

@@ -7,7 +7,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 
@@ -25,8 +24,7 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        Button b1 = ((Button) findViewById(R.id.schedule));
-        b1.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.schedule).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent SecAct = new Intent(getApplicationContext(), schedule.class);
@@ -34,17 +32,7 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        Button b4 = ((Button) findViewById(R.id.schedule));
-        b4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent SecAct = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(SecAct);
-            }
-        });
-
-        Button b5 = ((Button) findViewById(R.id.button5));
-        b5.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.registr).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent SecAct = new Intent(getApplicationContext(), RegisterActivity.class);
@@ -52,23 +40,24 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        Button b = (Button) findViewById(R.id.button3);
-        b.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.createGroup).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent SecAct = new Intent(getApplicationContext(), CreateGroupActivity.class);
                 startActivity(SecAct);
             }
         });
-        SharedPreferences mSharedPreferences = getPreferences(MODE_PRIVATE);
-        Long group = mSharedPreferences.getLong("group",-1);
-        if(group==-1){
+
+        SharedPreferences mSharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
+        Long group = mSharedPreferences.getLong("group", -1);
+        if (group == -1) {
             Toast.makeText(this, "Пожалуйста, войдите в систему", Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
             Toast.makeText(this, "Вход выполнен успешно", Toast.LENGTH_SHORT).show();
         }
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

@@ -7,9 +7,9 @@ public class Schedule_item {
     private int number;
     private int day;
     private boolean week;
-    private String name;
-    private String teacher;
-    private String cab;
+    private String name = "";
+    private String teacher = "";
+    private String cab = "";
 
     public String getCab() {
         return cab;
@@ -25,11 +25,6 @@ public class Schedule_item {
 
     public void setNumber(int number) {
         this.number = number;
-    }
-
-
-    public void setWeek(boolean week) {
-        this.week = week;
     }
 
     public String getName() {
@@ -58,5 +53,9 @@ public class Schedule_item {
 
     public boolean isWeek() {
         return week;
+    }
+
+    public void setWeek(boolean week) {
+        this.week = week;
     }
 }

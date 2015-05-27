@@ -1,6 +1,5 @@
 package com.example.azaz.myapplication;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -20,43 +19,47 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import Entities.Schedule;
 import Entities.Schedule_item;
 
 
 public class schedule extends ActionBarActivity implements Handable {
-    List<Schedule_item> schedule = Schedule.getInstance();
+    List<Schedule_item> schedule = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences mSharedPreferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences mSharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
         Long group = mSharedPreferences.getLong("group",-1);
         WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, this, "Posting data...", this);
-        wst.execute(new String[]{Constants.getServiceUrl() + "/rasp/byId?id=" + group});
+
+        wst.execute(new String[]{Constants.getServiceUrl() + "/rasp/byGroupId?id=" + group});
+//        setContentView(R.layout.activity_schedule);
+    }
 
 
-
+    void postpostExec() {
         LayoutInflater inflater = LayoutInflater.from(this);
         List<View> pages = new ArrayList<View>();
-
         for (int i = 1; i < 13; i++) {
             int current=0;
             View page = inflater.inflate(R.layout.activity_list__schedule, null);
+
             String[] arr = new String[45];
+            Arrays.fill(arr, "");
             for(int j=0;j<schedule.size();j++) {
                 if(schedule.get(j).getDay()==i){
                     Schedule_item item = schedule.get(j);
-                    arr[current]+=item.getName()+"\n"+item.getCab()+"\n"+item.getTeacher();
+                    arr[current++] += "" + item.getName() + "\n" + item.getCab() + "\n" + item.getTeacher();
                 }
 
                 TextView textView = (TextView) page.findViewById(R.id.TEST_TEXT);
                 if(i<=6){
                     textView.setText("Неделя 1, день "+i);
                 }else {
-                    textView.setText("Неделя 2, день "+i%6);
+                    textView.setText("Неделя 2, день " + (i % 6 == 0 ? 6 : i % 6));
                 }
 
             }
@@ -74,9 +77,7 @@ public class schedule extends ActionBarActivity implements Handable {
 
         setContentView(viewPager);
 
-//        setContentView(R.layout.activity_schedule);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -120,8 +121,7 @@ public class schedule extends ActionBarActivity implements Handable {
                     item.setDay(obj.getInt("day"));
                     schedule.add(item);
                 }
-
-
+                postpostExec();
             }
         }catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Invalid password or email", Toast.LENGTH_SHORT).show();

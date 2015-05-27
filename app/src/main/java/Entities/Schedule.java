@@ -8,6 +8,11 @@ import java.util.List;
  */
 public class Schedule {
     private static List<Schedule_item> sheduleItems = null;
+
+    private Schedule() {
+        ;
+    }
+
     public static List<Schedule_item> getInstance(){
         if(sheduleItems == null){
             sheduleItems = new ArrayList<Schedule_item>();
