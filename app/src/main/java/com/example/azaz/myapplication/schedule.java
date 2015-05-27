@@ -1,25 +1,38 @@
 package com.example.azaz.myapplication;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class schedule extends ActionBarActivity {
+public class schedule extends ActionBarActivity implements Handable {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences mSharedPreferences = getPreferences(MODE_PRIVATE);
+        Long group = mSharedPreferences.getLong("group",-1);
+        WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, this, "Posting data...", this);
+        wst.execute(new String[]{Constants.getServiceUrl() + "/schedule/byId?id=" + group});
+
 
 
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -74,5 +87,22 @@ public class schedule extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void handleResponse(String response) {
+        EditText edPassword = (EditText) findViewById(R.id.password);
+        try {
+            JSONObject jso = new JSONObject(response);
+            if (jso.getString("password").equals(edPassword.getText().toString())) {
+                Intent SecAct = new Intent(getApplicationContext(), FindGroup.class);
+                startActivity(SecAct);
+            }
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Invalid password or email", Toast.LENGTH_SHORT).show();
+            Log.e("AASS", e.getLocalizedMessage(), e);
+        }
+
     }
 }
