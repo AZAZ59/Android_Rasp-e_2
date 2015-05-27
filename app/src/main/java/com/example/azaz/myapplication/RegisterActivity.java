@@ -43,6 +43,7 @@ public class RegisterActivity extends Activity implements Handable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         mSpinner_university = (Spinner) findViewById(R.id.spinner);
+        mSpinner_university.setPrompt("University");
         mSpinner_group = (Spinner) findViewById(R.id.spinner2);
         mSpinner_group.setEnabled(false);
         new WebServiceTask(WebServiceTask.GET_TASK, this, "Posting data...", new Handable() {
@@ -54,10 +55,10 @@ public class RegisterActivity extends Activity implements Handable {
                     for (int i = 0; i < jsa.length(); i++) {
                         university.add(jsa.getJSONObject(i).getString("name"));
                     }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, university.toArray(new String[0]));
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(RegisterActivity.this, android.R.layout.simple_spinner_dropdown_item, university.toArray(new String[0]));
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     mSpinner_university.setAdapter(adapter);
-                    mSpinner_university.setSelection(0);
+                    mSpinner_university.setEnabled(true);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -68,7 +69,7 @@ public class RegisterActivity extends Activity implements Handable {
         mSpinner_university.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                new WebServiceTask(WebServiceTask.GET_TASK, getApplicationContext(), "Posting data...", new Handable() {
+                new WebServiceTask(WebServiceTask.GET_TASK, RegisterActivity.this, "Posting data...", new Handable() {
                     @Override
                     public void handleResponse(String response) {
                         try {
@@ -77,12 +78,12 @@ public class RegisterActivity extends Activity implements Handable {
                             for (int i = 0; i < jsa.length(); i++) {
                                 groups.add(jsa.getJSONObject(i).getString("nameGroup"));
                             }
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, groups.toArray(new String[0]));
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(RegisterActivity.this, android.R.layout.simple_spinner_dropdown_item, groups.toArray(new String[0]));
                             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                             mSpinner_group.setAdapter(adapter);
                             //mSpinner_group.setSelection(0);
                         } catch (JSONException e) {
-                            e.printStackTrace();/**/
+                            e.printStackTrace();
                         }
                     }
                 }).execute(new String[]{Constants.getServiceUrl() + "/group/byUniversity?university=" + university.get(position)});
@@ -100,10 +101,10 @@ public class RegisterActivity extends Activity implements Handable {
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!mSpinner_university.isSelected()) {
+                if (mSpinner_university.getSelectedItemId() < 0) {
                     //postDataWithoutAll();//TODO
                 } else {
-                    if (!mSpinner_group.isSelected()) {
+                    if (mSpinner_group.getSelectedItemId() < 0) {
                         postDataWithoutGroup();
                     } else {
                         postData();
