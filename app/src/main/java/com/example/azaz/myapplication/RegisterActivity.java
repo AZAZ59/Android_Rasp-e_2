@@ -80,7 +80,7 @@ public class RegisterActivity extends Activity implements Handable {
                             mSpinner_group.setAdapter(adapter);
                             //mSpinner_group.setSelection(0);
                         } catch (JSONException e) {
-                            e.printStackTrace();
+                            e.printStackTrace();/**/
                         }
                     }
                 }).execute(new String[]{Constants.getServiceUrl() + "/group/byUniversity?university=" + university.get(position)});
