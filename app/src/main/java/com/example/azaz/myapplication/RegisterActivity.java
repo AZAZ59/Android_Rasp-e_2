@@ -99,7 +99,7 @@ public class RegisterActivity extends Activity implements Handable {
             @Override
             public void onClick(View view) {
                 if (!mSpinner_university.isSelected()) {
-                    postDataWithoutAll();
+                    //postDataWithoutAll();//TODO
                 } else {
                     if (!mSpinner_group.isSelected()) {
                         postDataWithoutGroup();
