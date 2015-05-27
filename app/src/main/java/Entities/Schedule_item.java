@@ -5,7 +5,7 @@ package Entities;
  */
 public class Schedule_item {
     private int number;
-    private int week;
+    private boolean week;
     private String name;
     private String teacher;
 
@@ -17,11 +17,11 @@ public class Schedule_item {
         this.number = number;
     }
 
-    public int getWeek() {
+    public boolean getWeek() {
         return week;
     }
 
-    public void setWeek(int week) {
+    public void setWeek(boolean week) {
         this.week = week;
     }
 

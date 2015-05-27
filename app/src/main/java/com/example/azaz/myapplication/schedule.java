@@ -16,14 +16,18 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import Entities.Schedule;
+import Entities.Schedule_item;
+
 
 public class schedule extends ActionBarActivity implements Handable {
-
+    List<Schedule_item> schedule = Schedule.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,24 +42,7 @@ public class schedule extends ActionBarActivity implements Handable {
         LayoutInflater inflater = LayoutInflater.from(this);
         List<View> pages = new ArrayList<View>();
 
-        for (int i = 1; i < 7; i++) {
-            View page = inflater.inflate(R.layout.activity_list__schedule, null);
-            TextView textView = (TextView) page.findViewById(R.id.TEST_TEXT);
-            textView.setText("День " + i);
-
-
-            GridView gw = (GridView) page.findViewById(R.id.gridView);
-            String[] arr = new String[45];
-            for (int j = 0; j < arr.length; j++) {
-                arr[j] = (j % 2 == 0 ? "AAAAA" : "BBBB") + "   " + j;
-            }
-            //DataAdapter da = new DataAdapter(arr,getApplicationContext(),R.id.TEST_TEXT);
-            ArrayAdapter<String> st = new ArrayAdapter<String>(this, R.layout.activity_schedule__item, R.id.schedule_Item_text, arr);
-            gw.setAdapter(st);
-
-
-            pages.add(page);
-        }
+        
 
         ViewPager viewPager = new ViewPager(this);
         viewPager.setAdapter(new SimplePageAdapter(pages));
@@ -92,14 +79,25 @@ public class schedule extends ActionBarActivity implements Handable {
 
     @Override
     public void handleResponse(String response) {
+
         EditText edPassword = (EditText) findViewById(R.id.password);
         try {
             JSONObject jso = new JSONObject(response);
-            if (jso.getString("password").equals(edPassword.getText().toString())) {
-                Intent SecAct = new Intent(getApplicationContext(), FindGroup.class);
-                startActivity(SecAct);
+            if (jso.has("rasp")) {
+                JSONArray objects = jso.getJSONArray("rasp");
+                for (int i = 0; i < objects.length(); i++) {
+                    JSONObject obj = objects.getJSONObject(i);
+                    Schedule_item item = new Schedule_item();
+                    item.setName(obj.getString("name_pair"));
+                    item.setWeek(obj.getBoolean("odd"));
+                    item.setNumber(obj.getInt("number_of_pair"));
+                    item.setTeacher(obj.getString("teacher"));
+                    schedule.add(item);
+                }
+
+
             }
-        } catch (Exception e) {
+        }catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Invalid password or email", Toast.LENGTH_SHORT).show();
             Log.e("AASS", e.getLocalizedMessage(), e);
         }
