@@ -43,23 +43,27 @@ public class schedule extends ActionBarActivity implements Handable {
         List<View> pages = new ArrayList<View>();
 
         for (int i = 1; i < 13; i++) {
+            int current=0;
+            String[] arr = new String[45];
             for(int j=0;j<schedule.size();j++) {
+                if(schedule.get(j).getDay()==i){
+                    Schedule_item item = schedule.get(j);
+                    arr[current]+=item.getName()+"\n"+item.getCab()+"\n"+item.getTeacher();
+                }
                 View page = inflater.inflate(R.layout.activity_list__schedule, null);
                 TextView textView = (TextView) page.findViewById(R.id.TEST_TEXT);
-                textView.setText("День " + i);
-
+                if(i<=6){
+                    textView.setText("Неделя 1, день "+i);
+                }else {
+                    textView.setText("Неделя 2, день "+i%6);
+                }
 
                 GridView gw = (GridView) page.findViewById(R.id.gridView);
-                String[] arr = new String[45];
-                for (int j = 0; j < arr.length; j++) {
-                    arr[j] = (j % 2 == 0 ? "AAAAA" : "BBBB") + "   " + j;
-                }
             }
+            
             //DataAdapter da = new DataAdapter(arr,getApplicationContext(),R.id.TEST_TEXT);
             ArrayAdapter<String> st = new ArrayAdapter<String>(this, R.layout.activity_schedule__item, R.id.schedule_Item_text, arr);
             gw.setAdapter(st);
-
-
             pages.add(page);
         }
 
