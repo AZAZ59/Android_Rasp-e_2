@@ -5,9 +5,19 @@ package Entities;
  */
 public class Schedule_item {
     private int number;
+    private int day;
     private boolean week;
     private String name;
     private String teacher;
+    private String cab;
+
+    public String getCab() {
+        return cab;
+    }
+
+    public void setCab(String cab) {
+        this.cab = cab;
+    }
 
     public int getNumber() {
         return number;
@@ -17,9 +27,6 @@ public class Schedule_item {
         this.number = number;
     }
 
-    public boolean getWeek() {
-        return week;
-    }
 
     public void setWeek(boolean week) {
         this.week = week;
@@ -39,5 +46,17 @@ public class Schedule_item {
 
     public void setTeacher(String teacher) {
         this.teacher = teacher;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public boolean isWeek() {
+        return week;
     }
 }

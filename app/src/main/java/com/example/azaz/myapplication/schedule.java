@@ -35,14 +35,33 @@ public class schedule extends ActionBarActivity implements Handable {
         SharedPreferences mSharedPreferences = getPreferences(MODE_PRIVATE);
         Long group = mSharedPreferences.getLong("group",-1);
         WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, this, "Posting data...", this);
-        wst.execute(new String[]{Constants.getServiceUrl() + "/schedule/byId?id=" + group});
+        wst.execute(new String[]{Constants.getServiceUrl() + "/rasp/byId?id=" + group});
 
 
 
         LayoutInflater inflater = LayoutInflater.from(this);
         List<View> pages = new ArrayList<View>();
 
-        
+        for (int i = 1; i < 13; i++) {
+            for(int j=0;j<schedule.size();j++) {
+                View page = inflater.inflate(R.layout.activity_list__schedule, null);
+                TextView textView = (TextView) page.findViewById(R.id.TEST_TEXT);
+                textView.setText("День " + i);
+
+
+                GridView gw = (GridView) page.findViewById(R.id.gridView);
+                String[] arr = new String[45];
+                for (int j = 0; j < arr.length; j++) {
+                    arr[j] = (j % 2 == 0 ? "AAAAA" : "BBBB") + "   " + j;
+                }
+            }
+            //DataAdapter da = new DataAdapter(arr,getApplicationContext(),R.id.TEST_TEXT);
+            ArrayAdapter<String> st = new ArrayAdapter<String>(this, R.layout.activity_schedule__item, R.id.schedule_Item_text, arr);
+            gw.setAdapter(st);
+
+
+            pages.add(page);
+        }
 
         ViewPager viewPager = new ViewPager(this);
         viewPager.setAdapter(new SimplePageAdapter(pages));
@@ -92,6 +111,8 @@ public class schedule extends ActionBarActivity implements Handable {
                     item.setWeek(obj.getBoolean("odd"));
                     item.setNumber(obj.getInt("number_of_pair"));
                     item.setTeacher(obj.getString("teacher"));
+                    item.setCab(obj.getString("cab"));
+                    item.setDay(obj.getInt("day"));
                     schedule.add(item);
                 }
 
