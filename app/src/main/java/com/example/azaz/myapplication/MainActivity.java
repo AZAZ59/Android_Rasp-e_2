@@ -1,12 +1,14 @@
 package com.example.azaz.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -58,6 +60,14 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(SecAct);
             }
         });
+        SharedPreferences mSharedPreferences = getPreferences(MODE_PRIVATE);
+        Long group = mSharedPreferences.getLong("group",-1);
+        if(group==-1){
+            Toast.makeText(this, "Пожалуйста, войдите в систему", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this, "Вход выполнен успешно", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 

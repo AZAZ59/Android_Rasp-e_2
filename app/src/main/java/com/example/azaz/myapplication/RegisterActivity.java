@@ -2,6 +2,7 @@ package com.example.azaz.myapplication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,6 +36,7 @@ public class RegisterActivity extends Activity implements Handable {
     private Spinner mSpinner_group;
     private ArrayList<String> groups = new ArrayList<>();
     private ArrayList<String> university = new ArrayList<>();
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,9 +138,19 @@ public class RegisterActivity extends Activity implements Handable {
                     Toast.LENGTH_LONG).show();
             return;
         }
+        sharedPreferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("username", login);
+        editor.putString("password", password);
+        editor.putLong("group", idGroup());
+        editor.commit();
+        Toast.makeText(this, "Данные сохранены", Toast.LENGTH_SHORT).show();
+
+
+
 
         WebServiceTask wst = new WebServiceTask(WebServiceTask.POST_TASK, this, "Posting data...", this);
-        wst.execute(new String[]{Constants.getServiceUrl() + "/user/name=" + login + "&pass=" + password + "rights=" + 1 + idGroup()});//TODO
+        wst.execute(new String[]{Constants.getServiceUrl() + "/user/name=" + login + "&pass=" + password + "rights=" + 1  +"&group="+ idGroup()});//TODO
 
     }
 
@@ -156,14 +168,12 @@ public class RegisterActivity extends Activity implements Handable {
         }
 
         WebServiceTask wst = new WebServiceTask(WebServiceTask.POST_TASK, this, "Posting data...", this);
-        wst.execute(new String[]{Constants.getServiceUrl() + "/user/name=" + login + "&pass=" + password + "rights=" + 1 + idGroup()});//TODO
+        wst.execute(new String[]{Constants.getServiceUrl() + "/user/name=" + login + "&pass=" + password + "&rights=" + 1});//TODO
 
     }
 
     private Integer idGroup() {
-        String obj = (String) mSpinner_group.getSelectedItem();
-
-
+        String obj = (String) mSpinner_group.getSelectedItem();//TODO
         return 0;
     }
 
